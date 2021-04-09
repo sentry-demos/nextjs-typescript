@@ -34,3 +34,14 @@ npm run dev
 
 npm run build
 npm start
+
+
+development, yarn dev  
+
+production,
+```
+ yarn build
+yarn start
+```
+
+localhost:3000/api/sentry?error=1

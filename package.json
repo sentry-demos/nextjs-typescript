@@ -5,9 +5,8 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "NODE_OPTIONS='--inspect' next dev",
-    "build": "yarn test-all && yarn cms-cache && next build",
+    "build": "yarn test-all && next build",
     "start": "next start",
-    "cms-cache": "yarn run dato dump --config 'src/helpers/datocms/build-time-cache.js'",
     "type-check": "tsc --pretty --noEmit",
     "format": "prettier --write src/**/*.{ts,tsx}",
     "lint": "eslint 'src/**/*.{ts,tsx}' --fix",

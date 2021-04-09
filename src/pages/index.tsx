@@ -19,7 +19,7 @@ export const Home = (): JSX.Element => (
 
       <button
         onClick={() => {
-          window.alert('With typescript and Jest')
+          throw new Error('client side error')
         }}
       >
         Test Button

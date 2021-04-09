@@ -8,6 +8,7 @@ const withSourceMaps = require('@zeit/next-source-maps')({
 
 // Use the SentryWebpack plugin to upload the source maps during build step
 const SentryWebpackPlugin = require('@sentry/webpack-plugin');
+const { Console } = require('console');
 
 const {
   NEXT_PUBLIC_SENTRY_DSN: SENTRY_DSN,
@@ -120,7 +121,15 @@ const nextConfig = {
     // and upload the source maps to sentry.
     // This is an alternative to manually uploading the source maps
     // Note: This is disabled in development mode.
-
+      
+      console.log({
+        releaseVersion,
+        SENTRY_DSN,
+        SENTRY_ORG,
+        SENTRY_PROJECT,
+        SENTRY_AUTH_TOKEN,
+        NEXT_PUBLIC_APP_STAGE
+      })
     if (
       releaseVersion &&
       SENTRY_DSN &&
@@ -129,6 +138,7 @@ const nextConfig = {
       SENTRY_AUTH_TOKEN &&
       NEXT_PUBLIC_APP_STAGE !== envs.DEVELOPMENT
     ) {
+      console.log("SENTRY WEBPACK PLUGIN.....\n")
       config.plugins.push(
         new SentryWebpackPlugin({
           include: '.next',
