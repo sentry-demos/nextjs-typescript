@@ -1,8 +1,8 @@
 
 
 
-## Sentry-demos/with-typescript-eslint-jest
-#### Setup
+# Sentry-demos/with-typescript-eslint-jest
+## Setup
 Create a .env with the following and fill in your values:
 ```
 NEXT_PUBLIC_SENTRY_SERVER_ROOT_DIR="/Users/<path>/<to>/with-typescript-eslint-jest/"
@@ -18,19 +18,15 @@ Don't forget NEXT_PUBLIC_SENTRY_SERVER_ROOT_DIR ^
 yarn install
 ```
 
-#### Run
+## Run
 ```
 yarn build
 yarn start
 ```
-#### Client error
-Click the 'Test' button
+1. **Client error** - Click the 'Test' button
 
-#### Node error
-localhost:3000/api/sentry?error=1
+2. **Node error** - Go to [localhost:3000/api/sentry?error=1](localhost:3000/api/sentry?error=1)
 
-
-# Default Readme (ignore)
 # NextJS Typescript Boilerplate (ignore)
 
 Bootstrap a developer-friendly NextJS app configured with:
