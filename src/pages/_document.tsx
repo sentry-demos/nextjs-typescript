@@ -7,44 +7,26 @@ import NextDocument, {
 } from 'next/document'
 // import { css } from '@design/stitches.config';
 
-type propsType = {
-  styles: JSX.Element
-  html: string
-  head?: JSX.Element[]
-}
+// type propsType = {
+//   styles: JSX.Element
+//   html: string
+//   head?: JSX.Element[]
+// }
 
 export default class Document extends NextDocument {
-  static async getInitialProps(ctx: DocumentContext): Promise<propsType> {
+  static async getInitialProps(ctx: DocumentContext): Promise<any> {
     // const originalRenderPage = ctx.renderPage;
 
-    try {
-      let extractedStyles
-      //   ctx.renderPage = () => {
-      //     // const { styles, result } = css.getStyles(originalRenderPage);
-      //     // extractedStyles = styles;
-      //     return result;
-      //   };
+    // let extractedStyles
+    //   ctx.renderPage = () => {
+    //     // const { styles, result } = css.getStyles(originalRenderPage);
+    //     // extractedStyles = styles;
+    //     return result;
+    //   };
 
-      const initialProps = await NextDocument.getInitialProps(ctx)
+    const initialProps = await NextDocument.getInitialProps(ctx)
 
-      return {
-        ...initialProps,
-        styles: (
-          <>
-            {initialProps.styles}
-
-            {extractedStyles.map((content) => (
-              <style
-                key={content}
-                dangerouslySetInnerHTML={{ __html: content }}
-              />
-            ))}
-          </>
-        ),
-      }
-    } finally {
-      // do nothing
-    }
+    return initialProps
   }
 
   render(): JSX.Element {
