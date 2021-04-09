@@ -11,9 +11,21 @@
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
+    "allowUnreachableCode": true,
     "isolatedModules": true,
-    "jsx": "preserve"
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "preserveConstEnums": true,
+    "removeComments": false,
+    "jsx": "preserve",
+    "sourceMap": true,
+    "baseUrl": "./src",
+    "importHelpers": true,
+    "paths": {
+      "@helpers/*": ["helpers/*"]
+    }
   },
-  "exclude": ["node_modules", ".next", "out"],
+  "exclude": [".github", ".next", "_content_cache", "node_modules", "public"],
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.js"]
 }
