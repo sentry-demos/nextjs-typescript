@@ -1,14 +1,14 @@
 /* eslint-disable no-param-reassign */
-​
+
 const withPlugins = require('next-compose-plugins');
-​
+
 const withSourceMaps = require('@zeit/next-source-maps')({
   devtool: 'hidden-source-map',
 });
-​​
+
 // Use the SentryWebpack plugin to upload the source maps during build step
 const SentryWebpackPlugin = require('@sentry/webpack-plugin');
-​
+
 const {
   NEXT_PUBLIC_SENTRY_DSN: SENTRY_DSN,
   NEXT_PUBLIC_APP_STAGE,
@@ -17,7 +17,7 @@ const {
   SENTRY_AUTH_TOKEN,
   VERCEL_GITHUB_COMMIT_SHA,
 } = process.env;
-​
+
 // The Sentry WebpackPlugin is used to upload sourcemaps at buildtime and
 // it looks for an environment variable specifically SENTRY_DSN,
 // so we need to map it so it works properly.
@@ -25,13 +25,13 @@ const {
 // https://github.com/getsentry/sentry-webpack-plugin
 // https://docs.sentry.io/cli/configuration
 process.env.SENTRY_DSN = SENTRY_DSN;
-​
+
 const envs = {
   DEVELOPMENT: 'development',
   STAGING: 'staging',
   PRODUCTION: 'production',
 };
-​
+
 const basePath = '';
 const nextConfig = {
   future: {
@@ -81,13 +81,13 @@ const nextConfig = {
       //   ],
       // },
     ];
-​
+
     return headers;
   },
   
   webpack: (config, { isServer, buildId, webpack }) => {
     const releaseVersion = VERCEL_GITHUB_COMMIT_SHA || buildId;
-​
+
     // In `pages/_app.js`, Sentry is imported from @sentry/browser. While
     // @sentry/node will run in a Node.js environment. @sentry/node will use
     // Node.js-only APIs to catch even more unhandled exceptions.
@@ -105,7 +105,7 @@ const nextConfig = {
     if (!isServer) {
       config.resolve.alias['@sentry/node'] = '@sentry/browser';
     }
-​
+
     // Define an environment variable so source code can check whether or not
     // it's running on the server so we can correctly initialize Sentry
     config.plugins.push(
@@ -114,13 +114,13 @@ const nextConfig = {
         'process.env.NEXT_PUBLIC_COMMIT_SHA': JSON.stringify(releaseVersion),
       })
     );
-​
+
     // When all the Sentry configuration env variables are available/configured
     // The Sentry webpack plugin gets pushed to the webpack plugins to build
     // and upload the source maps to sentry.
     // This is an alternative to manually uploading the source maps
     // Note: This is disabled in development mode.
-​
+
     if (
       releaseVersion &&
       SENTRY_DSN &&
@@ -142,13 +142,13 @@ const nextConfig = {
         })
       );
     }
-​
+
     return config;
   },
   basePath,
   poweredByHeader: false,
 };
-​
+
 module.exports = withPlugins(
   [
     [withSourceMaps]
