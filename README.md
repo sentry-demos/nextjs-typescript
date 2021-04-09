@@ -1,4 +1,37 @@
-# NextJS Typescript Boilerplate
+
+
+
+## Sentry-demos/with-typescript-eslint-jest
+#### Setup
+Create a .env with the following and fill in your values:
+```
+NEXT_PUBLIC_SENTRY_SERVER_ROOT_DIR="/Users/<path>/<to>/with-typescript-eslint-jest/"
+NEXT_PUBLIC_APP_STAGE=production
+NEXT_PUBLIC_SENTRY_DSN="<DSN>"
+SENTRY_ORG=<ORG>
+SENTRY_PROJECT=<PROJECT>
+SENTRY_AUTH_TOKEN=<TOKEN>
+```
+Don't forget NEXT_PUBLIC_SENTRY_SERVER_ROOT_DIR ^ 
+
+```
+yarn install
+```
+
+#### Run
+```
+yarn build
+yarn start
+```
+#### Client error
+Click the 'Test' button
+
+#### Node error
+localhost:3000/api/sentry?error=1
+
+
+# Default Readme (ignore)
+# NextJS Typescript Boilerplate (ignore)
 
 Bootstrap a developer-friendly NextJS app configured with:
 
@@ -25,23 +58,3 @@ yarn create next-app --example with-typescript-eslint-jest with-typescript-eslin
 ```
 
 Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
-
-
-
-## Will
-npm run dev
-
-
-npm run build
-npm start
-
-
-development, yarn dev  
-
-production,
-```
- yarn build
-yarn start
-```
-
-localhost:3000/api/sentry?error=1
