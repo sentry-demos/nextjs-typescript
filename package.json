@@ -1,9 +1,8 @@
 {
-  "name": "atlas",
-  "author": "Jilles Cardoso <jillesmc@gmail.com> (https://github.com/jillesmc)",
-  "license": "MIT",
-  "version": "1.0.0",
   "scripts": {
+    "layer0:dev": "layer0 dev",
+    "layer0:build": "layer0 build",
+    "layer0:deploy": "layer0 deploy",
     "dev": "NODE_OPTIONS='--inspect' next dev",
     "build": "yarn test-all && next build",
     "start": "next start",
@@ -15,6 +14,10 @@
     "clean": "npx del-cli .next/",
     "analyze": "yarn clean && cross-env ANALYZE=true yarn build"
   },
+  "name": "atlas",
+  "author": "Jilles Cardoso <jillesmc@gmail.com> (https://github.com/jillesmc)",
+  "license": "MIT",
+  "version": "1.0.0",
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",
@@ -41,11 +44,7 @@
     "@radix-ui/react-icons": "^1.0.1",
     "@radix-ui/react-tooltip": "^0.0.9",
     "@reach/menu-button": "^0.11.2",
-    "@sentry/browser": "^5.28.0",
-    "@sentry/integrations": "^5.28.0",
-    "@sentry/node": "^5.28.0",
-    "@sentry/tracing": "^5.28.0",
-    "@sentry/webpack-plugin": "^1.13.0",
+    "@sentry/nextjs": "^6.4.1",
     "@stitches/react": "^0.0.3-canary.4",
     "@unly/utils": "^1.0.3",
     "@unly/utils-simple-logger": "^1.4.0",
@@ -98,6 +97,12 @@
     "winston": "^3.3.3"
   },
   "devDependencies": {
+    "@layer0/cli": "^3.8.1",
+    "@layer0/core": "^3.8.1",
+    "@layer0/devtools": "^3.8.1",
+    "@layer0/next": "^3.8.1",
+    "@layer0/prefetch": "^3.8.1",
+    "@layer0/react": "^3.8.1",
     "@next/bundle-analyzer": "^10.1.2",
     "@testing-library/react": "^10.0.1",
     "@types/algoliasearch": "^3.34.10",
@@ -116,6 +121,7 @@
     "@welldone-software/why-did-you-render": "^4.3.2",
     "babel-jest": "^25.2.3",
     "cross-env": "^7.0.2",
+    "dotenv-flow": "^3.2.0",
     "eslint": "^7.2.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^6.10.1",
