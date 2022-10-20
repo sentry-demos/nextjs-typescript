@@ -1,9 +1,9 @@
 {
   "scripts": {
-    "layer0": "cross-env LAYER0=true layer0",
     "layer0:dev": "cross-env LAYER0=true NODE_ENV=development layer0 dev",
     "layer0:build": "cross-env LAYER0=true layer0 build",
     "layer0:deploy": "cross-env LAYER0=true layer0 deploy --skip-build",
+    "layer0": "cross-env LAYER0=true layer0",
     "layer0:env-pull": "layer0 env pull",
     "dev": "NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
@@ -59,12 +59,12 @@
   },
   "devDependencies": {
     "@babel/preset-typescript": "^7.13.0",
-    "@layer0/cli": "^3.19.0",
-    "@layer0/core": "^3.19.0",
-    "@layer0/devtools": "^3.19.0",
-    "@layer0/next": "^3.19.0",
-    "@layer0/prefetch": "^3.19.0",
-    "@layer0/react": "^3.19.0",
+    "@layer0/cli": "^4.19.2",
+    "@layer0/core": "^4.19.2",
+    "@layer0/devtools": "^4.19.2",
+    "@layer0/next": "^4.19.2",
+    "@layer0/prefetch": "^4.19.2",
+    "@layer0/react": "^4.19.2",
     "@sentry/cli": "^2.6.0",
     "@testing-library/dom": "^7.30.4",
     "@testing-library/jest-dom": "^5.12.0",
@@ -76,8 +76,8 @@
     "@types/jest": "^26.0.23",
     "@types/json-stringify-safe": "^5.0.0",
     "@types/node": "^15.0.1",
-    "@types/react": "17.0.4",
-    "@types/react-dom": "^16.9.9",
+    "@types/react": "17.0.21",
+    "@types/react-dom": "17.0.2",
     "@types/styled-jsx": "^3.4.4",
     "@types/webpack": "^4.41.22",
     "@typescript-eslint/eslint-plugin": "^4.6.1",
@@ -105,5 +105,8 @@
     "typescript": "^4.2.4",
     "typewriter": "^7.3.0",
     "webpack": "^5.28.0"
+  },
+  "resolutions": {
+    "@types/react": "~17.0.2"
   }
 }

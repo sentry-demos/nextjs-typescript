@@ -17,11 +17,11 @@ export const Home = (): JSX.Element => (
         </a>
 
         <a href="/sentry/client/test2" className="card">
-          <p>Client-Side - Test 01</p>
+          <p>Client-Side - Test 02</p>
         </a>
 
         <a href="/sentry/client/test3" className="card">
-          <p>Client-Side - Test 01</p>
+          <p>Client-Side - Test 03</p>
         </a>
 
         <hr />

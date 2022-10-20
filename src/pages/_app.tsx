@@ -1,6 +1,6 @@
 import { Metrics } from '@layer0/rum';
 import type { AppProps } from 'next/app';
-import React, { FC } from 'react';
+import { FC } from 'react';
 
 if (process.env.NEXT_PUBLIC_FEATURE_FLAG_RUM === 'true') {
   new Metrics({
@@ -10,7 +10,6 @@ if (process.env.NEXT_PUBLIC_FEATURE_FLAG_RUM === 'true') {
 
 interface MyAppProps extends AppProps {
   err?: (Error & { statusCode?: number }) | null;
-  Component: AppProps['Component'];
 }
 
 const Noop: FC = ({ children }: any) => <>{children}</>;

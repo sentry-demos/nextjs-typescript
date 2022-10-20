@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 const { withLayer0, withServiceWorker } = require('@layer0/next/config');
-const withPlugins = require('next-compose-plugins');
 const { withSentryConfig } = require('@sentry/nextjs');
+// const withPlugins = require('next-compose-plugins');
 
 const {
   NEXT_PUBLIC_APP_STAGE,
@@ -33,28 +33,21 @@ const nextConfig = {
   poweredByHeader: false,
 };
 
-const plugins = [];
-if (process.env.LAYER0 === 'true') {
-  plugins.push([withLayer0, { layer0SourceMaps: false }], [withServiceWorker]);
-}
-
-module.exports = withPlugins(
-  [
-    [_nextConfig => _nextConfig, { target: 'experimental-serverless-trace' }],
-    ...plugins,
-    [
-      _nextConfig => _nextConfig,
-      {
-        sentry: {
-          disableServerWebpackPlugin: !sourceMapping,
-          disableClientWebpackPlugin: !sourceMapping,
-          hideSourceMaps: true,
-          autoInstrumentServerFunctions: false,
-          widenClientFileUpload: widenSourceMaps,
-        },
+module.exports = withSentryConfig(
+  withLayer0(
+    withServiceWorker({
+      ...nextConfig,
+      target: 'experimental-serverless-trace',
+      // Output source maps so that stack traces have original source filenames and line numbers when tailing
+      // the logs in the Edgio developer console.
+      layer0SourceMaps: true,
+      sentry: {
+        disableServerWebpackPlugin: !sourceMapping,
+        disableClientWebpackPlugin: !sourceMapping,
+        hideSourceMaps: true,
+        autoInstrumentServerFunctions: false,
+        widenClientFileUpload: widenSourceMaps,
       },
-    ],
-    [withSentryConfig],
-  ],
-  nextConfig
+    })
+  )
 );
