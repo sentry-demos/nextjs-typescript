@@ -6,7 +6,6 @@ module.exports = {
   transformIgnorePatterns: ['<rootDir>/node_modules/'],
   transform: {
     '^.+\\.(ts|tsx)?$': 'babel-jest',
-    '^.+\\.svg$': '<rootDir>/svg-transform.js',
   },
   moduleDirectories: ['node_modules', '<rootDir>/src/'],
   moduleNameMapper: {
