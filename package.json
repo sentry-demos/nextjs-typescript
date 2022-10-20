@@ -15,7 +15,7 @@
     "format:check": "prettier --check .",
     "lint": "eslint 'src/**/*.{ts,tsx,js,jsx}'",
     "lint:fix": "yarn lint --fix",
-    "test": "jest --verbose --env=jsdom --coverage",
+    "test": "jest --verbose --env=jsdom --coverage --passWithNoTests",
     "test:watch": "jest --watch --verbose --env=jsdom",
     "test:unit": "jest --verbose --env=jsdom --config=jest-unit.config.js",
     "test:unit:watch": "jest --verbose --env=jsdom --config=jest-unit.config.js --watchAll",
