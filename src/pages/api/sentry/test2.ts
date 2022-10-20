@@ -1,4 +1,3 @@
-import { withSentry } from '@sentry/nextjs';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 function work() {
@@ -7,8 +6,8 @@ function work() {
 
 work();
 
-async function handler(_req: NextApiRequest, res: NextApiResponse): Promise<void> {
+const handler = async (_req: NextApiRequest, res: NextApiResponse): Promise<any> => {
   res.status(200).json({ name: 'John Doe' });
-}
+};
 
-export default withSentry(handler);
+export default handler;

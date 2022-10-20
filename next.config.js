@@ -45,7 +45,7 @@ module.exports = withSentryConfig(
         disableServerWebpackPlugin: !sourceMapping,
         disableClientWebpackPlugin: !sourceMapping,
         hideSourceMaps: true,
-        autoInstrumentServerFunctions: false,
+        autoInstrumentServerFunctions: true,
         widenClientFileUpload: widenSourceMaps,
       },
     })
