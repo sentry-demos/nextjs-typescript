@@ -1,5 +1,5 @@
-import Head from 'next/head'
-import Image from 'next/image'
+import Head from 'next/head';
+import Image from 'next/image';
 
 export const Home = (): JSX.Element => (
   <div className="container">
@@ -9,47 +9,51 @@ export const Home = (): JSX.Element => (
     </Head>
 
     <main>
-      <h1 className="title">
-        Welcome to <a href="https://nextjs.org">Next.js!</a>
-      </h1>
-
-      <p className="description">
-        Get started by editing <code>pages/index.tsx</code>
-      </p>
-
-      <button
-        onClick={() => {
-          throw new Error('client side error')
-        }}
-      >
-        Test Button
-      </button>
+      <h1 className="title">Welcome to Nextjs Typescript - Sentry examples</h1>
 
       <div className="grid">
-        <a href="https://nextjs.org/docs" className="card">
-          <h3>Documentation &rarr;</h3>
-          <p>Find in-depth information about Next.js features and API.</p>
+        <a href="/sentry/client/test1" className="card">
+          <p>Client-Side - Test 01</p>
         </a>
 
-        <a href="https://nextjs.org/learn" className="card">
-          <h3>Learn &rarr;</h3>
-          <p>Learn about Next.js in an interactive course with quizzes!</p>
+        <a href="/sentry/client/test2" className="card">
+          <p>Client-Side - Test 02</p>
         </a>
 
-        <a
-          href="https://github.com/vercel/next.js/tree/master/examples"
-          className="card"
-        >
-          <h3>Examples &rarr;</h3>
-          <p>Discover and deploy boilerplate example Next.js projects.</p>
+        <a href="/sentry/client/test3" className="card">
+          <p>Client-Side - Test 03</p>
         </a>
 
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          className="card"
-        >
-          <h3>Deploy &rarr;</h3>
-          <p>Instantly deploy your Next.js site to a public URL with Vercel.</p>
+        <hr />
+
+        <a href="/sentry/ssr/test1" className="card">
+          <p>SSR - Test 01</p>
+        </a>
+
+        <a href="/sentry/ssr/test2" className="card">
+          <p>SSR - Test 02</p>
+        </a>
+
+        <a href="/sentry/ssr/test3" className="card">
+          <p>SSR - Test 03</p>
+        </a>
+
+        <hr />
+
+        <a href="/api/sentry/test1" className="card">
+          <p>API - Test 01</p>
+        </a>
+
+        <a href="/api/sentry/test2" className="card">
+          <p>API - Test 02</p>
+        </a>
+
+        <a href="/api/sentry/test3" className="card">
+          <p>API - Test 03</p>
+        </a>
+
+        <a href="/api/sentry/test4" className="card">
+          <p>API - Test 04</p>
         </a>
       </div>
     </main>
@@ -60,8 +64,7 @@ export const Home = (): JSX.Element => (
         target="_blank"
         rel="noopener noreferrer"
       >
-        Powered by{' '}
-        <Image src="/vercel.svg" alt="Vercel Logo" height={'32'} width={'64'} />
+        Powered by <Image src="/vercel.svg" alt="Vercel Logo" height="32" width="64" />
       </a>
     </footer>
 
@@ -140,8 +143,8 @@ export const Home = (): JSX.Element => (
         border-radius: 5px;
         padding: 0.75rem;
         font-size: 1.1rem;
-        font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
-          DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
+        font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
+          Bitstream Vera Sans Mono, Courier New, monospace;
       }
 
       .grid {
@@ -197,8 +200,8 @@ export const Home = (): JSX.Element => (
       body {
         padding: 0;
         margin: 0;
-        font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-          Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+        font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell,
+          Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
       }
 
       * {
@@ -206,6 +209,6 @@ export const Home = (): JSX.Element => (
       }
     `}</style>
   </div>
-)
+);
 
-export default Home
+export default Home;

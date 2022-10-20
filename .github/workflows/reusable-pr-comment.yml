@@ -1,0 +1,45 @@
+on: [workflow_call]
+
+jobs:
+  prComment:
+    name: PR Comment
+    runs-on: ubuntu-latest
+    steps:
+      - name: Find pull-request ID
+        if: success()
+        uses: jwalton/gh-find-current-pr@v1.3.2
+        id: finder
+
+      - name: Download a single artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: deployment-manifest.json
+
+      - name: Get deployment URLs
+        if: success()
+        id: deploy_manifest
+        run: |
+          content=$(cat deployment-manifest.json | tr -d '\n')
+          echo "json=$content" >> $GITHUB_OUTPUT
+
+      - name: Check if deployment report file exists
+        if: steps.deploy_manifest.outputs.json == ''
+        run: |
+          echo File deployment-manifest.json is empty or not exists
+          exit 1
+        
+      - name: Sticky Pull Request Comment
+        if: success()
+        uses: marocchino/sticky-pull-request-comment@v2.2.1
+        with:
+          number: ${{ steps.finder.outputs.pr }}
+          recreate: true
+          message: |
+            :white_check_mark: Permalink: <${{ env.DEPLOYMENT_PERMALINK }}>
+            :heavy_check_mark: Edge: <${{env.DEPLOYMENT_EDGE}}>
+        env:
+          DEPLOYMENT_NUMBER: ${{fromJson(steps.deploy_manifest.outputs.json).number}}
+          DEPLOYMENT_PERMALINK: ${{fromJson(steps.deploy_manifest.outputs.json).url}}
+          DEPLOYMENT_EDGE: ${{fromJson(steps.deploy_manifest.outputs.json).environment.url}}
+          DEPLOYMENT_ENVIRONMENT: ${{fromJson(steps.deploy_manifest.outputs.json).environment.name}}
+          

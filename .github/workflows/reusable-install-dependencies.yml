@@ -1,0 +1,25 @@
+on: [workflow_call]
+
+jobs:
+  installDependencies:
+    name: Dependencies
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+          cache: 'yarn'
+          check-latest: true
+
+      - name: Install dependencies
+        run: yarn install --prefer-offline --frozen-lockfile
+      
+      - uses: actions/cache@v3
+        id: cache-build
+        with:
+          path: ./*
+          key: ${{ github.sha }}

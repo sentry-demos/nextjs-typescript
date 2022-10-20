@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es6",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
@@ -10,22 +10,20 @@
     "esModuleInterop": true,
     "module": "esnext",
     "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "allowUnreachableCode": true,
     "isolatedModules": true,
+    "resolveJsonModule": true,
+    "jsx": "preserve",
+    "allowUnreachableCode": true,
     "noFallthroughCasesInSwitch": true,
-    "noUnusedLocals": true,
+    "noUnusedLocals": false,
     "noUnusedParameters": true,
     "preserveConstEnums": true,
     "removeComments": false,
-    "jsx": "preserve",
     "sourceMap": true,
     "baseUrl": "./src",
-    "importHelpers": true,
-    "paths": {
-      "@helpers/*": ["helpers/*"]
-    }
+    "importHelpers": true
   },
-  "exclude": [".github", ".next", "_content_cache", "node_modules", "public"],
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.js"]
+  "exclude": [".github", ".next", "node_modules", "public"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.js", "./jest.setup.ts"],
+  "types": ["node", "jest", "@types/testing-library__jest-dom"]
 }
