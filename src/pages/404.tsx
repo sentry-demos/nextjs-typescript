@@ -23,7 +23,7 @@ export default function NotFound(): JSX.Element {
     <>
       <h1>Houston we have a 404</h1>
     </>
-  )
+  );
 }
 
 // NotFound.Layout = Layout;

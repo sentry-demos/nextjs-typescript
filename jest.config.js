@@ -1,17 +1,16 @@
 module.exports = {
-  roots: ['<rootDir>'],
-  moduleFileExtensions: ['ts', 'tsx', 'js', 'json', 'jsx'],
-  testPathIgnorePatterns: ['<rootDir>[/\\\\](node_modules|.next)[/\\\\]'],
-  transformIgnorePatterns: ['[/\\\\]node_modules[/\\\\].+\\.(ts|tsx)$'],
+  roots: ['<rootDir>'], // root folder
+  globalSetup: '<rootDir>/jest-global.setup.ts',
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
+  testPathIgnorePatterns: ['<rootDir>/.next/', '<rootDir>/node_modules/'],
+  transformIgnorePatterns: ['<rootDir>/node_modules/'],
   transform: {
-    '^.+\\.(ts|tsx)$': 'babel-jest',
+    '^.+\\.(ts|tsx)?$': 'babel-jest',
+    '^.+\\.svg$': '<rootDir>/svg-transform.js',
   },
-  watchPlugins: [
-    'jest-watch-typeahead/filename',
-    'jest-watch-typeahead/testname',
-  ],
+  moduleDirectories: ['node_modules', '<rootDir>/src/'],
   moduleNameMapper: {
-    '\\.(css|less|sass|scss)$': 'identity-obj-proxy',
-    '\\.(gif|ttf|eot|svg|png)$': '<rootDir>/test/__mocks__/fileMock.js',
+    // tsconfig paths mapper: Avoids path resolution errors when importing modules
   },
-}
+  verbose: true,
+};

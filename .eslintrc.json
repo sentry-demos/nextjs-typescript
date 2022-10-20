@@ -1,47 +1,95 @@
 {
-  "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint"],
-  "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "plugin:@typescript-eslint/recommended"
-    // Uncomment the following lines to enable eslint-config-prettier
-    // Is not enabled right now to avoid issues with the Next.js repo
-    // "prettier",
-  ],
   "env": {
-    "es6": true,
     "browser": true,
+    "es2020": true,
     "jest": true,
     "node": true
   },
-  "settings": {
-    "react": {
-      "version": "detect"
-    }
-  },
+  "extends": [
+    "airbnb",
+    "airbnb/hooks",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/typescript",
+    "plugin:react/recommended",
+    "plugin:sonarjs/recommended",
+    "prettier",
+    "prettier/@typescript-eslint",
+    "prettier/react"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint", "sonarjs", "simple-import-sort"],
   "rules": {
-    "react/react-in-jsx-scope": 0,
-    "react/display-name": 0,
-    "react/prop-types": 0,
-    "@typescript-eslint/explicit-function-return-type": 0,
-    "@typescript-eslint/explicit-member-accessibility": 0,
-    "@typescript-eslint/indent": 0,
-    "@typescript-eslint/member-delimiter-style": 0,
-    "@typescript-eslint/no-explicit-any": 0,
-    "@typescript-eslint/no-var-requires": 0,
-    "@typescript-eslint/no-use-before-define": 0,
+    "sonarjs/no-duplicate-string": "off",
+    "sonarjs/cognitive-complexity": "warn",
+    "@typescript-eslint/ban-types": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/explicit-member-accessibility": "off",
+    "@typescript-eslint/indent": "off",
+    "@typescript-eslint/member-delimiter-style": "off",
+    "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-unused-vars": [
-      2,
+      "warn",
       {
         "argsIgnorePattern": "^_"
       }
     ],
-    "no-console": [
+    "no-unused-vars": ["warn", { "varsIgnorePattern": "^_" }],
+    "no-use-before-define": "off",
+    "@typescript-eslint/no-var-requires": "off",
+    "jsx-a11y/anchor-is-valid": "off",
+    "jsx-a11y/click-events-have-key-events": "off",
+    "react/display-name": "off",
+    "react/no-array-index-key": "warn",
+    "react/no-unknown-property": [
       2,
       {
-        "allow": ["warn", "error"]
+        "ignore": ["jsx", "global"]
+      }
+    ],
+    "react/jsx-filename-extension": [
+      "warn",
+      {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    ],
+    "react/jsx-one-expression-per-line": "off",
+    "react/prop-types": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/require-default-props": "off",
+    "react/jsx-props-no-spreading": "off",
+    "no-console": [
+      "error",
+      {
+        "allow": ["debug", "warn", "error"]
+      }
+    ],
+    "no-plusplus": "off",
+    "import/no-extraneous-dependencies": "off",
+    "import/named": "error",
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
       }
     ]
+  },
+  "settings": {
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"]
+    },
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".json", ".jsx", ".ts", ".tsx"]
+      },
+      "typescript": {}
+    }
   }
 }

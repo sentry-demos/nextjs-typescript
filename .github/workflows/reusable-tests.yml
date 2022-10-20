@@ -1,0 +1,46 @@
+on: [workflow_call]
+
+jobs:
+  formatCheck:
+    name: Formatting
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/cache@v3
+        id: restore-build
+        with:
+          path: ./*
+          key: ${{ github.sha }}
+      - run: yarn format:check
+  
+  lintCheck:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/cache@v3
+        id: restore-build
+        with:
+          path: ./*
+          key: ${{ github.sha }}
+      - run: yarn lint
+
+  typeCheck:
+    name: Type
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/cache@v3
+        id: restore-build
+        with:
+          path: ./*
+          key: ${{ github.sha }}
+      - run: yarn type:check
+
+  testUnit:
+    name: Unit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/cache@v3
+        id: restore-build
+        with:
+          path: ./*
+          key: ${{ github.sha }}
+      - run: yarn test --maxWorkers=2

@@ -1,0 +1,52 @@
+name: Deploying pushed/merged branches
+
+on: 
+  push:
+    branches:    
+      - main
+      - sentry-next-plugin-and-layer0
+
+jobs:
+  init:
+    name: Initialize
+    runs-on: ubuntu-latest
+    outputs:
+      environment_name: ${{ steps.setvars.outputs.environment_name }}
+    steps:
+      - name: Set variables
+        id: setvars
+        run: |
+          if [[ "${{github.base_ref}}" == "main" || "${{github.ref}}" == "refs/heads/main" ]]; then
+            echo 'environment_name=["default"]' >> $GITHUB_OUTPUT
+          elif [[ "${{github.base_ref}}" == "sentry-next-plugin-and-layer0" || "${{github.ref}}" == "refs/heads/sentry-next-plugin-and-layer0" ]]; then 
+            echo 'environment_name=["default"]' >> $GITHUB_OUTPUT
+          fi  
+
+  callInstallDependencies:
+    name: Install
+    needs: init 
+    uses: ./.github/workflows/reusable-install-dependencies.yml
+    secrets: inherit
+
+  callTests:
+    name: Test
+    needs: callInstallDependencies
+    uses: ./.github/workflows/reusable-tests.yml
+    secrets: inherit
+  
+  callDeployApplication:
+    strategy:
+      matrix:
+        environment_name: ${{fromJson(needs.init.outputs.environment_name)}}
+    name: Build and Deploy
+    needs: [init,callTests]
+    uses: ./.github/workflows/reusable-build-and-deploy-layer0.yml
+    secrets: inherit
+    with:
+      environment_name: ${{matrix.environment_name}}
+
+  callPrComment:
+    name: Github
+    needs: callDeployApplication
+    uses: ./.github/workflows/reusable-pr-comment.yml
+    secrets: inherit

@@ -1,3 +1,5 @@
 **/node_modules/*
 **/out/*
 **/.next/*
+**/.layer0/*
+src/**/*.test*

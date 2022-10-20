@@ -2,30 +2,17 @@
 
 
 # Sentry-demos/with-typescript-eslint-jest
+
 ## Setup
-Create a .env with the following and fill in your values:
+1. Create a  [Layer0 account](https://app.layer0.co/)
+2. Clone this repository
+3. Run `yarn`
+4. Update .env file variables:
 ```
-NEXT_PUBLIC_SENTRY_SERVER_ROOT_DIR="/Users/<path>/<to>/with-typescript-eslint-jest/"
-NEXT_PUBLIC_APP_STAGE=production
 NEXT_PUBLIC_SENTRY_DSN="<DSN>"
-SENTRY_ORG=<ORG>
-SENTRY_PROJECT=<PROJECT>
-SENTRY_AUTH_TOKEN=<TOKEN>
-```
-Don't forget NEXT_PUBLIC_SENTRY_SERVER_ROOT_DIR ^ 
-
-```
-yarn install
 ```
 
-## Run
-```
-yarn build
-yarn start
-```
-1. **Client error** - Click the 'Test' button
 
-2. **Node error** - Go to [localhost:3000/api/sentry?error=1](localhost:3000/api/sentry?error=1)
 
 # NextJS Typescript Boilerplate (ignore)
 

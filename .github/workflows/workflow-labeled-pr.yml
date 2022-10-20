@@ -1,0 +1,44 @@
+name: Deploying to labeled environment
+
+on:
+  pull_request:
+    types: [labeled]
+
+jobs:
+  init:
+    name: Initialize
+    if: startsWith(github.event.label.name, 'staging')
+    runs-on: ubuntu-latest
+    outputs:
+      environment_name: ${{ steps.setvars.outputs.environment_name }}
+    steps:
+      - name: Set variables
+        id: setvars
+        run: |
+          echo "environment_name=${{github.event.label.name}}" >> $GITHUB_OUTPUT
+  
+  callInstallDependencies:
+    name: Install
+    needs: init 
+    uses: ./.github/workflows/reusable-install-dependencies.yml
+    secrets: inherit
+
+  callTests:
+    name: Test
+    needs: callInstallDependencies
+    uses: ./.github/workflows/reusable-tests.yml
+    secrets: inherit
+  
+  callDeployApplication:
+    name: Build and Deploy
+    needs: [init,callTests]
+    uses: ./.github/workflows/reusable-build-and-deploy-layer0.yml
+    secrets: inherit
+    with:
+      environment_name: ${{needs.init.outputs.environment_name}}
+
+  callPrComment:
+    name: Github
+    needs: callDeployApplication
+    uses: ./.github/workflows/reusable-pr-comment.yml
+    secrets: inherit

@@ -1,0 +1,102 @@
+on: 
+  workflow_call:
+    inputs:
+      environment_name:
+        required: true
+        type: string
+
+jobs:
+  deployApplication:
+    name: App
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/cache@v3
+        id: restore-build
+        with:
+          path: ./*
+          key: ${{ github.sha }}
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+          cache: 'yarn'
+          check-latest: true
+
+      - name: Start deployment
+        uses: bobheadxi/deployments@v1.3.0
+        id: deployment
+        with:
+          step: start
+          token: ${{ secrets.GITHUB_TOKEN }}
+          env: ${{inputs.environment_name}}
+
+      - name: Pull env vars
+        id: pull-var
+        run: |
+          sed -i 's/fileContent += (secret ? `#${key}=<SECRET VALUE>` : `${key}=${value}`) + EOL + EOL;/fileContent += (`${key}=${value}`) + EOL + EOL;/g' node_modules/@layer0/cli/commands/env/pull.js
+          yarn layer0:env-pull --token=${{secrets.layer0_deploy_token}} --environment=${{inputs.environment_name}} .env.production.local
+          sed -i 's/fileContent += (`${key}=${value}`) + EOL + EOL;/fileContent += (secret ? `#${key}=<SECRET VALUE>` : `${key}=${value}`) + EOL + EOL;/g' node_modules/@layer0/cli/commands/env/pull.js
+
+      - name: Build
+        id: build
+        run: |
+          yarn layer0:build
+        env:
+          SENTRY_AUTH_TOKEN: ${{secrets.sentry_auth_token}}
+          SENTRY_ORG: ${{secrets.sentry_org}}
+          SENTRY_PROJECT: ${{secrets.sentry_project}}
+          SENTRY_RELEASE: ${{ github.sha }}
+
+      - name: Set release commits
+        id: commits
+        run: |
+          yarn sentry-cli releases set-commits --auto  ${{ env.SENTRY_RELEASE }}
+        env:
+          SENTRY_AUTH_TOKEN: ${{secrets.sentry_auth_token}}
+          SENTRY_ORG: ${{secrets.sentry_org}}
+          SENTRY_PROJECT: ${{secrets.sentry_project}}
+          SENTRY_RELEASE: ${{ github.sha }}
+
+      - name: Delete source-maps
+        id: clean-sourcemaps
+        run: |
+          yarn clean:sourcemaps
+
+      - name: Deploy to Layer0
+        id: deploy
+        run: |
+          yarn layer0:deploy --branch=${{github.ref_name}} --token=${{secrets.layer0_deploy_token}} --environment=${{inputs.environment_name}}
+
+      - name: Get deployment URLs
+        if: success()
+        id: deploy_manifest
+        run: |
+          content=$(cat .layer0/deployment-manifest.json | tr -d '\n')
+          echo "json=$content" >> $GITHUB_OUTPUT
+      
+      - name: Check if deployment report file exists
+        if: steps.deploy_manifest.outputs.json == ''
+        run: |
+          echo File .layer0/deployment-manifest.json is empty or not exists
+          exit 1
+
+      - name: Upload deployment-manifest.json
+        if: success()
+        uses: actions/upload-artifact@v3
+        with:
+          name: deployment-manifest.json
+          path: .layer0/deployment-manifest.json
+          if-no-files-found: error
+      
+      - name: Update deployment status
+        uses: bobheadxi/deployments@v1.3.0
+        if: always()
+        with:
+          step: finish
+          token: ${{ secrets.GITHUB_TOKEN }}
+          status: ${{ job.status }}
+          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+          env_url: ${{ env.DEPLOYMENT_EDGE }}
+          env: ${{inputs.environment_name}}
+        env:
+          DEPLOYMENT_EDGE: ${{fromJson(steps.deploy_manifest.outputs.json).environment.url}}

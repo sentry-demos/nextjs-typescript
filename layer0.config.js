@@ -7,11 +7,8 @@ module.exports = {
   connector: '@layer0/next',
   backends: {
     origin: {
-      domainOrIp: process.env.LEGACY_BACKEND_DOMAIN || 'legacy.example.com.br',
-      hostHeader: process.env.LEGACY_BACKEND_HOST_HEADER || 'legacy.example.com.br',
+      domainOrIp: 'legacy.example.com.br',
+      hostHeader: 'legacy.example.com.br',
     },
-  },
-  includeFiles: {
-    '_content_cache/**/*': true,
   },
 };
