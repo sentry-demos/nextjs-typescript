@@ -4,40 +4,53 @@
 # Sentry-demos/with-typescript-eslint-jest
 
 ## Setup
-1. Create a  [Layer0 account](https://app.layer0.co/)
-2. Clone this repository
-3. Run `yarn`
-4. Update .env file variables:
+
+### 1. Create a [Layer0 account](https://app.layer0.co/)
+### 2. Clone this repository
+### 3. install dependencies:
 ```
-NEXT_PUBLIC_SENTRY_DSN="<DSN>"
+yarn install
 ```
-
-
-
-# NextJS Typescript Boilerplate (ignore)
-
-Bootstrap a developer-friendly NextJS app configured with:
-
-- [Typescript](https://www.typescriptlang.org/)
-- Linting with [ESLint](https://eslint.org/)
-- Formatting with [Prettier](https://prettier.io/)
-- Linting, typechecking and formatting on by default using [`husky`](https://github.com/typicode/husky) for commit hooks
-- Testing with [Jest](https://jestjs.io/) and [`react-testing-library`](https://testing-library.com/docs/react-testing-library/intro)
-
-## Deploy your own
-
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-typescript-eslint-jest&project-name=with-typescript-eslint-jest&repository-name=with-typescript-eslint-jest)
-
-## How to use
-
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
-
-```bash
-npx create-next-app --example with-typescript-eslint-jest with-typescript-eslint-jest-app
-# or
-yarn create next-app --example with-typescript-eslint-jest with-typescript-eslint-jest-app
+### 4. Update .env file variables:
+```
+NEXT_PUBLIC_SENTRY_DSN=
+SENTRY_AUTH_TOKEN=
+SENTRY_ORG=
+SENTRY_PROJECT=
+```
+### 5. Run the command layer0 login to create a authorization token
+```
+yarn layer0 login
 ```
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+### 6. Now you can you can deploy using layer0
+```
+yarn layer0 deploy
+```
+This will:
+- create a new project in layer0 if it doesn't exist
+- build the nextjs application
+- deploy the application to layer0
+
+## Deploying using Github Actions after the project creation in Layer0
+This strategy will decouple the build and deploy phases.
+
+### 1. Access the [Layer0 dashboard](https://app.layer0.co/)
+### 2. Go to: `{Your Project}` > `Settings` > `Create New Deploy Token` 
+
+> name: GITHUB_ACTION_TOKEN
+
+### 3. Copy the token value
+### 4. Go to the github repository: `Settings` > `Secrets` > `Actions` > `New Repository secret`
+
+> name: LAYER0_DEPLOY_TOKEN
+
+> value: {the value of GITHUB_ACTION_TOKEN from Layer0}
+
+### 5. You also should create some sentry variables as githib action secrets
+```
+SENTRY_AUTH_TOKEN
+SENTRY_ORG
+SENTRY_PROJECT
+```
+___ 
